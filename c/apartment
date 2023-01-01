@@ -1,0 +1,71 @@
+class Apartment:
+    def __init__(self, address: str, parking_type: str, rooms_num: int, size_in_sq_meters: int,
+                 floor: int, has_balcony: bool, is_penthouse, or_vila: str, monthly_municipal_tax: int,
+                 deal_state="open"):
+        self.deal_state = deal_state
+        self.or_vila = or_vila
+        self.is_penthouse = is_penthouse
+        self.monthly_municipal_tax = monthly_municipal_tax
+        self.deal_state = deal_state
+
+        self.has_balcony = has_balcony
+        self.floor = floor
+        self.size_in_sq_meters = size_in_sq_meters
+        self.rooms_num = rooms_num
+        self.parking_type = parking_type
+        self.address = address
+
+    def get_annual_municipal_tax(self):
+        return (self.monthly_municipal_tax * 12)
+
+    def get_agency_fee(self):
+        return self.agency_fee
+
+    def close_deal(self):
+        return f"this deal is {self.deal_state}"
+
+    def is_for_rent(self):
+        if isinstance(self,Apartment_rent):
+            if self.deal_state =="open":
+                return "This apartment is for rent and is available for offers"
+            else:
+                return "This apartment is for rent but it is occupied now, maybe come back in a few months"
+        else:
+            return "This apartment is not for rent"
+
+    def is_for_sale(self):
+        if isinstance(self, Apartment_sale):
+            if self.deal_state == "open":
+                return "This apartment is for sale and is available for offers"
+            else:
+                return "The apartment is for sale but the apartment has been sold"
+        else:
+            return "This apartment is not for sale"
+
+
+class Apartment_sale(Apartment):
+    def __init__(self, address: str, parking_type: str, rooms_num: int, size_in_sq_meters: int,
+                 floor: int, has_balcony: bool, is_penthouse,is_vila: str, monthly_municipal_tax: int, sale_price: int,
+                 deal_state="open"):
+        super().__init__(address, parking_type, rooms_num, size_in_sq_meters, floor, has_balcony
+                         , is_penthouse,is_vila, monthly_municipal_tax, deal_state="open")
+        self.sale_price = sale_price
+        self.agency_fee = self.sale_price*0.2
+
+
+class Apartment_rent(Apartment):
+    def __init__(self, address: str, parking_type: str, rooms_num: int, size_in_sq_meters: int,
+                 floor: int, has_balcony: bool, is_penthouse,or_vila: str, monthly_municipal_tax: int,
+                 rent_price_per_month: int, deal_state="open"):
+        super().__init__(address, parking_type, rooms_num, size_in_sq_meters, floor, has_balcony, is_penthouse,or_vila,
+                         monthly_municipal_tax, deal_state="open")
+        self.rent_price_per_month = rent_price_per_month
+        self.agency_fee = self.rent_price_per_month * 0.2
+
+    def get_annual_rent_price(self):
+        return f"the annual price is{self.rent_price_per_month*12}"
+
+
+
+ya = Apartment_sale("sdadg","Dvs",2,322,4,True,True,False,100,2500000)
+print(ya.is_for_rent())
