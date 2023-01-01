@@ -10,12 +10,13 @@ class TextFile(ABC):
         if not os.path.exists(file_path):
             raise Exception("doesn't exists")
         if os.path.splitext(file_path)[-1][1:] != self._get_ext():
-            raise Exception("bla")
+            raise Exception("no in format")
         self._file_path = file_path
 
     def get_file_size(self):
         size = os.path.getsize(self._file_path)
-        return size
+        dir1, name = os.path.split(self._file_path)
+        return f"The size of the {name} file is:{size} "
 
     def get_content(self):
         with open(self._file_path, 'r') as fd:
@@ -53,7 +54,6 @@ class CsvFile(TextFile):
             dir2, name2 = os.path.split(other._file_path)
             new_name = f"{name1.split('.')[0]}_{name2.split('.')[0]}.csv"
             new_path = os.path.join(dir1, new_name)
-
             fieldnames = header2
 
             with open(new_path, 'w',newline="") as f:
@@ -64,6 +64,8 @@ class CsvFile(TextFile):
 
 
             return CsvFile(new_path)
+        else:
+            raise Exception("the header not even")
 
 
 
@@ -96,20 +98,19 @@ class TxtFile(TextFile):
 
         return TxtFile(new_path)
 
+if __name__ == '__main__':
 
-
-
-
-
-
-txt_1 = TxtFile("sample2.txt")
-txt_2 =TxtFile("sample3.txt")
-print(txt_1.get_file_size())
-# print(d.get_content())
-new_txt = txt_1 +txt_2
-csv_1 = CsvFile("SampleCSVFile_1.csv")
-csv_2= CsvFile("SampleCSVFile_2.csv")
-new_csv = csv_1+csv_2
-json_1 = JsonFile("sample4.json")
-json_2 = JsonFile("sample1.json")
+    txt_1 = TxtFile("sample2.txt")
+    txt_2 =TxtFile("sample3.txt")
+    print(txt_1.get_file_size())
+    # print(d.get_content())
+    new_txt = txt_1 +txt_2
+    print(new_txt.get_file_size())
+    csv_1 = CsvFile("SampleCSVFile_1.csv")
+    csv_2= CsvFile("SampleCSVFile_2.csv")
+    print(csv_1.get_file_size())
+    new_csv = csv_1+csv_2
+    print(new_csv.get_file_size())
+    json_1 = JsonFile("sample4.json")
+    json_2 = JsonFile("sample1.json")
 
