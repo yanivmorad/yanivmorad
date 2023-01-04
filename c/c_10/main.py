@@ -99,18 +99,19 @@ class TxtFile(TextFile):
         return TxtFile(new_path)
 
 if __name__ == '__main__':
-
-    txt_1 = TxtFile("sample2.txt")
-    txt_2 =TxtFile("sample3.txt")
-    print(txt_1.get_file_size())
-    # print(d.get_content())
-    new_txt = txt_1 +txt_2
-    print(new_txt.get_file_size())
-    csv_1 = CsvFile("SampleCSVFile_1.csv")
-    csv_2= CsvFile("SampleCSVFile_2.csv")
-    print(csv_1.get_file_size())
-    new_csv = csv_1+csv_2
-    print(new_csv.get_file_size())
-    json_1 = JsonFile("sample4.json")
-    json_2 = JsonFile("sample1.json")
-
+    try:
+        txt_1 = TxtFile("sample2.txt")
+        txt_2 =TxtFile("sample3.txt")
+        print(txt_1.get_file_size())
+        # print(d.get_content())
+        new_txt = txt_1 +txt_2
+        print(new_txt.get_file_size())
+        csv_1 = CsvFile("SampleCSVFile_1.csv")
+        csv_2= CsvFile("SampleCSVFile_2.csv")
+        print(csv_1.get_file_size())
+        new_csv = csv_1+csv_2
+        print(new_csv.get_file_size())
+        json_1 = JsonFile("sample4.json")
+        json_2 = JsonFile("sample1.json")
+    except Exception as e:
+        print(e)
