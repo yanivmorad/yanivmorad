@@ -36,6 +36,8 @@ if __name__ == '__main__':
                 print("Sorry for the delay, it will take about 20 seconds")
                 save_website.multi_scan(urls,args.apikey)
                 print(save_website.get_urls_reputation(urls, args.apikey))
+            else:
+                print(save_website.get_urls_reputation(urls,args.apikey))
     except Exception as e:
         print(e)
     with open('VT_website.pickle', 'wb') as fh:
